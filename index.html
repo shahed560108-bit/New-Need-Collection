@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Need Collection - Mens Fashion</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background-color: #f4f4f4; color: #333; }
+        header { background: #111; color: #fff; padding: 15px; text-align: center; }
+        header h1 { font-size: 24px; color: #ff9900; }
+        
+        .container { padding: 15px; max-width: 800px; margin: auto; }
+        .section-title { margin: 20px 0 10px; font-size: 20px; border-bottom: 2px solid #ff9900; display: inline-block; }
+        
+        /* Product Grid */
+        .products { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-card { background: #fff; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
+        .product-card h3 { font-size: 16px; margin: 8px 0; }
+        .product-card .price { color: #e65100; font-weight: bold; margin-bottom: 8px; }
+        .btn-order { background: #ff9900; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; }
+
+        /* Order Form */
+        .order-form-container { background: #fff; padding: 20px; border-radius: 8px; margin-top: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-submit { background: #28a745; color: #fff; font-size: 16px; padding: 12px; border: none; width: 100%; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Need Collection</h1>
+        <p>ছেলেদের প্রিমিয়াম পোশাকের নির্ভরযোগ্য প্রতিষ্ঠান</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">আমাদের কালেকশন</h2>
+        <div class="products">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/150" alt="Shirt">
+                <h3>প্রিমিয়াম কটন শার্ট</h3>
+                <div class="price">৳ ৭৫০</div>
+                <button class="btn-order" onclick="selectProduct('প্রিমিয়াম কটন শার্ট - ৳৭৫০')">অর্ডার করুন</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/150" alt="Pants">
+                <h3>জিন্স প্যান্ট</h3>
+                <div class="price">৳ ৯৫০</div>
+                <button class="btn-order" onclick="selectProduct('জিন্স প্যান্ট - ৳৯৫০')">অর্ডার করুন</button>
+            </div>
+        </div>
+
+        <!-- Order Form Section -->
+        <div class="order-form-container" id="order-section">
+            <h2 style="margin-bottom: 15px;">অর্ডার দিন (Cash on Delivery)</h2>
+            <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label>পছন্দের প্রোডাক্ট:</label>
+                    <input type="text" id="productName" placeholder="প্রোডাক্ট নির্বাচন করুন" required readonly>
+                </div>
+                <div class="form-group">
+                    <label>সাইজ:</label>
+                    <select id="size" required>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>আপনার নাম:</label>
+                    <input type="text" id="userName" placeholder="আপনার পুরো নাম লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label>মোবাইল নম্বর:</label>
+                    <input type="tel" id="userPhone" placeholder="০১৭" required>
+                </div>
+                <div class="form-group">
+                    <label>পূর্ণাঙ্গ ঠিকানা:</label>
+                    <textarea id="userAddress" rows="3" placeholder="জেলা, থানা ও এলাকার নাম লিখুন" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">হোয়াটসঅ্যাপে অর্ডার কনফার্ম করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function selectProduct(name) {
+            document.getElementById('productName').value = name;
+            document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            
+            // আপনার হোয়াটসঅ্যাপ নম্বরটি নিচে পরিবর্তন করুন ( 8801609749124)
+            var adminPhone = "8801401473057"; 
+            
+            var product = document.getElementById('productName').value;
+            var size = document.getElementById('size').value;
+            var name = document.getElementById('userName').value;
+            var phone = document.getElementById('userPhone').value;
+            var address = document.getElementById('userAddress').value;
+
+            var message = `*নতুন অর্ডার এসেছে - Need Collection*%0A%0A` +
+                          `*প্রোডাক্ট:* ${product}%0A` +
+                          `*সাইজ:* ${size}%0A` +
+                          `*গ্রাহকের নাম:* ${name}%0A` +
+                          `*ফোন নম্বর:* ${phone}%0A` +
+                          `*ঠিকানা:* ${address}`;
+
+            var whatsappUrl = `https://wa.me/${adminPhone}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+
+</body>
+                  </html>
